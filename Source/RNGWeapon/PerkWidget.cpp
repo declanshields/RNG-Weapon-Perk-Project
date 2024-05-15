@@ -13,6 +13,4 @@ void UPerkWidget::PopulateScreen(AWeapon* InWeapon)
 
 	TArray<FPerkColumn> PerkColumns = InWeapon->PerkColumns;
 	TArray<FWeaponStat> WeaponStats = InWeapon->WeaponStats;
-
-	UUserWidget RootWidget = GetRootWidget();
 }

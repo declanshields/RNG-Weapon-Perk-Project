@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Components/Image.h"
 #include "Weapon.generated.h"
 
 USTRUCT(BlueprintType)
@@ -16,6 +17,9 @@ struct FWeaponPerk
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	FText PerkDescription;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UImage* PerkIcon;
 };
 
 USTRUCT(BlueprintType)

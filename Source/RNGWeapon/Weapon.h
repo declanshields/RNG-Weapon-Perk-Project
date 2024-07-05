@@ -60,4 +60,10 @@ public:
 	
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Weapon Perks")
 	TArray<FPerkColumn> PerkColumns;
+
+	UFUNCTION(BlueprintCallable)
+	TArray<FWeaponStat> GetWeaponStats() { return WeaponStats; }
+
+	UFUNCTION(BlueprintCallable)
+	TArray<FPerkColumn> GetWeaponPerkColumns() { return PerkColumns; }
 };

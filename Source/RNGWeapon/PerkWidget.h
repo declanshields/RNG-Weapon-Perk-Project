@@ -3,19 +3,26 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Blueprint/UserWidgetBlueprint.h"
-#include "Weapon.h"
+#include "Blueprint/UserWidget.h"
+#include "PerkToolTip.h"
+#include "Components/Image.h"
+#include "Components/TextBlock.h"
 #include "PerkWidget.generated.h"
 
 /**
  * 
  */
 UCLASS(BlueprintType)
-class RNGWEAPON_API UPerkWidget : public UUserWidgetBlueprint
+class RNGWEAPON_API UPerkWidget : public UUserWidget
 {
 	GENERATED_BODY()
 	
 public:
-	UFUNCTION(BlueprintCallable)
-	void PopulateScreen(AWeapon* InWeapon);
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (BindWidget))
+	UImage* PerkImage;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	TSubclassOf<UPerkToolTip> PerkToolTipWidget;
+
+	UPerkToolTip* PerkToolTip;
 };

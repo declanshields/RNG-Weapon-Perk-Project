@@ -28,7 +28,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void PopulatePerks();
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = ScreenFormatting)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Widgets)
 	TSubclassOf<UUserWidget> WeaponStatWidget;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
@@ -46,5 +46,9 @@ public:
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
 	UVerticalBox* WeaponStatBox = nullptr;
 
-	UWeaponStatWidget* WeaponStatWidgetRef;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Widgets)
+	TSubclassOf<UUserWidget> PerkColumnWidget;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Widgets)
+	TSubclassOf<UUserWidget> PerkWidget;
 };

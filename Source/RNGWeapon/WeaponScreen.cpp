@@ -3,6 +3,9 @@
 
 #include "WeaponScreen.h"
 #include "Components/ProgressBar.h"
+#include "Blueprint/WidgetTree.h"
+#include "PerkColumnWidget.h"
+#include "PerkWidget.h"
 
 void UWeaponScreen::SetWeapon(AActor* InWeapon)
 {
@@ -23,7 +26,9 @@ void UWeaponScreen::PopulateStats()
 		WeaponStatBox->ClearChildren();
 	}
 	else
+	{
 		return;
+	}
 
 	if (CachedWeaponStats.IsEmpty())
 		return;
@@ -32,19 +37,44 @@ void UWeaponScreen::PopulateStats()
 	{
 		if (WeaponStatWidget)
 		{
-			WeaponStatWidgetRef = CreateWidget<UWeaponStatWidget>(GetWorld(), UWeaponStatWidget::StaticClass());
-			WeaponStatWidgetRef->Initialise();
+			UWeaponStatWidget* WeaponWidget = CreateWidget<UWeaponStatWidget>(GetWorld(), WeaponStatWidget);
 
-			WeaponStatWidgetRef->StatName->Text = Stat.StatName;
-			WeaponStatWidgetRef->StatValueBar->SetPercent(Stat.StatValue);
-			WeaponStatWidgetRef->StatValueText->Text = (FText::FromString(FString::SanitizeFloat(Stat.StatValue)));
+			WeaponWidget->StatName->SetText(Stat.StatName);
+			WeaponWidget->StatValueBar->SetPercent((Stat.StatValue / 100));
+			WeaponWidget->StatValueText->SetText(FText::FromString(FString::SanitizeFloat(Stat.StatValue)));
 
-			WeaponStatBox->AddChildToVerticalBox(WeaponStatWidgetRef);
+			WeaponStatBox->AddChildToVerticalBox(WeaponWidget);
 		}
 	}
 }
 
 void UWeaponScreen::PopulatePerks()
 {
+	if (WeaponPerkColumnBox)
+		WeaponPerkColumnBox->ClearChildren();
 
+	if (CachedWeaponPerkColumns.IsEmpty())
+		return;
+
+	if (PerkColumnWidget && PerkWidget)
+	{
+		for (FPerkColumn PerkColumn : CachedWeaponPerkColumns)
+		{
+			UPerkColumnWidget* tempColumnWidget = CreateWidget<UPerkColumnWidget>(GetWorld(), PerkColumnWidget);
+
+			for (FWeaponPerk Perk : PerkColumn.WeaponPerks)
+			{
+				UPerkWidget* tempPerk = CreateWidget<UPerkWidget>(GetWorld(), PerkWidget);
+				tempPerk->PerkToolTip = CreateWidget<UPerkToolTip>(GetWorld(), tempPerk->PerkToolTipWidget);
+
+				tempPerk->PerkToolTip->PerkName->SetText(Perk.PerkName);
+				tempPerk->PerkToolTip->PerkDescription->SetText(Perk.PerkDescription);
+				tempPerk->PerkImage->SetBrushFromTexture(Perk.PerkIcon);
+
+				tempColumnWidget->PerkColumnBox->AddChildToVerticalBox(tempPerk);
+			}
+
+			WeaponPerkColumnBox->AddChildToHorizontalBox(tempColumnWidget);
+		}
+	}
 }

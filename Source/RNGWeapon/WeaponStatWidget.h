@@ -18,17 +18,15 @@ class RNGWEAPON_API UWeaponStatWidget : public UUserWidget
 	GENERATED_BODY()
 	
 public:
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (BindWidget))
-	UHorizontalBox * StatBox = nullptr;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UHorizontalBox * StatBox;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (BindWidget))
-	UTextBlock* StatName = nullptr;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UTextBlock* StatName;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (BindWidget))
-	UProgressBar* StatValueBar = nullptr;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UProgressBar* StatValueBar;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (BindWidget))
-	UTextBlock* StatValueText = nullptr;
-
-	void Initialise();
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UTextBlock* StatValueText;
 };
